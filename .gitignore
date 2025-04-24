@@ -1,0 +1,22 @@
+# Evita di includere provider scaricati
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Evita file eseguibili o troppo grandi
+*.exe
+*.zip
+*.tar.gz
+*.7z
+
+# Evita file personali o temporanei
+*.log
+*.tmp
+*.swp
+*.DS_Store
+
+# Evita file di configurazione specifici dell'ambiente
+terraform.tfvars
+
+
+.terraform/

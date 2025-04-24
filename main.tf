@@ -39,3 +39,56 @@ resource "azurerm_mssql_database" "gaia_sql_db" {
   zone_redundant = false
 } 
 
+resource "azurerm_network_security_group" "gaia_nsg" {
+  name                = "gaia-nsg"
+  location            = azurerm_resource_group.gaia_rg.location
+  resource_group_name = azurerm_resource_group.gaia_rg.name
+
+  security_rule {
+    name                       = "Allow_DNS_UDP_53"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Udp"
+    source_port_range          = "*"
+    destination_port_range     = "53"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "Allow_SSH_TCP_22"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "Deny_TCP_8888"
+    priority                   = 120
+    direction                  = "Inbound"
+    access                     = "Deny"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8888"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "Allow_UDP_1194"
+    priority                   = 130
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Udp"
+    source_port_range          = "*"
+    destination_port_range     = "1194"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+} 
